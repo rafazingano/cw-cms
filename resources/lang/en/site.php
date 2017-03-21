@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'panel' => 'Crm panel',
+    'leads' => 'Leads',
+    'leadrules' => 'Lead Rules',
+    'campaigns' => 'Campaigns',
+    'title' => 'Title',
+    'slug' => 'Slug',
+    'description' => 'Description',
+    'users' => 'Users',
+    'save' => 'Save',
+    'title_form_create' => 'Site creation form',
+    'subtitle_form_create' => 'Use the form below to create the lead Sites',
+    'list' => 'List',
+    'create' => 'Create',
+    'pages' => 'Pages',
+    'view_all' => 'View All',
+    'blog' => 'Blog',
+    'blogs' => 'Blogs',
+    'active' => 'Active',
+    'types' => 'Types',
+    'updated_at' => 'Updated At',
+    'created_at' => 'Created At',
+    'action' => 'Action',
+    'id' => 'ID',
+    'site' => 'Site',
+    'sites' => 'Sites',
+    'theme' => 'Theme',
+    'icon' => 'Icon'
+];
