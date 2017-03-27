@@ -36,11 +36,17 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
+        $input = $request->all();
         $this->validate($request, [
-            'email' => 'required'
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'content' => 'required',
         ]);
+        $input['content'] = implode(' | ', $request->except(['name','email','phone']));
+        
         try {
-            $this->save($request);
+            $this->save($input);
             return back()->withInput()->with('message', 'lead.create_success');
         } catch (Exception $e) {
             return back()->withInput()->with('message', $e->getMessage());
