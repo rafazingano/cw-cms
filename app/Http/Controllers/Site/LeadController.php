@@ -6,15 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Lead;
 
-class LeadController extends Controller
-{
+class LeadController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
@@ -23,8 +22,7 @@ class LeadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -34,8 +32,7 @@ class LeadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $input = $request->all();
         $this->validate($request, [
             'name' => 'required',
@@ -43,7 +40,11 @@ class LeadController extends Controller
             'phone' => 'required',
             'content' => 'required',
         ]);
-        $input['content'] = implode(' | ', $request->except(['name','email','phone']));
+        //print_r($input); die();
+        //foreach ($request->except(['_token', 'name', 'email', 'phone']) as $k => $v) {
+            //$input['content'] .= ' - ' . $k . ' => ' . $v;
+        //    $r = 1;
+        //}
         
         try {
             $this->save($input);
@@ -59,8 +60,7 @@ class LeadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -70,8 +70,7 @@ class LeadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -82,8 +81,7 @@ class LeadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -93,11 +91,10 @@ class LeadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
-    
+
     private function save($request, $id = null) {
         $attributes = $request->all();
         try {
@@ -112,4 +109,5 @@ class LeadController extends Controller
         }
         return $lead->id;
     }
+
 }

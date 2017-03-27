@@ -75,6 +75,9 @@ class PostController extends Controller {
             }
         }
         abort_if(!$post, 404);
+        //echo '<pre>'; print_r($post); die();
+        $posts = Post::where(['type_id' => $post['type_id']])->get();        
+        
         /* Monta as opções disponiveis para o post */
         $opt = array();
         foreach ($post->options as $o_v) {
@@ -93,7 +96,7 @@ class PostController extends Controller {
         if (!$view) {
             abort_if(!$post, 404);
         }
-        return view($view, compact('post', 'options', 'layout'));
+        return view($view, compact('posts', 'post', 'options', 'layout'));
     }
 
     /**
