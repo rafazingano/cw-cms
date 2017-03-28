@@ -8,7 +8,7 @@ Homestead.json
 Homestead.yaml
 .env
 /nbproject
-!/public/assets/site/default
-/public/assets/site
-!/resource/views/site/default
-/resource/views/site
+#!/public/assets/site/default
+#/public/assets/site
+#!/resource/views/site/default
+#/resource/views/site
