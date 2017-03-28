@@ -97,6 +97,10 @@ class ThemeController extends Controller {
     }
 
     private function createStructure($slug) {
+        /* Resource's Path's */
+        if (!is_dir(resource_path('views/site'))) {
+            mkdir(resource_path('views/site'), 0755);
+        }
         if (!is_dir(resource_path('views/site/' . $slug))) {
             mkdir(resource_path('views/site/' . $slug), 0755);
             mkdir(resource_path('views/site/' . $slug . '/layouts'), 0755);
@@ -107,6 +111,12 @@ class ThemeController extends Controller {
             mkdir(resource_path('views/site/' . $slug . '/types'), 0755);
             $this->createFile(resource_path('views/site/' . $slug . '/types'), 'posts.blade.php', 'posts)');
             mkdir(resource_path('views/site/' . $slug . '/assets'), 0755);
+        }
+        /* Public's Path's */
+        if (!is_dir(public_path('assets/site'))) {
+            mkdir(public_path('assets/site'), 0755);
+        }
+        if (!is_dir(public_path('assets/site/' . $slug))) {
             mkdir(public_path('assets/site/' . $slug), 0755);
         }
         return true;
