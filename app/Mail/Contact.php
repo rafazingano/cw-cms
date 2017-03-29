@@ -39,6 +39,8 @@ class Contact extends Mailable {
             foreach ($lr->users as $u) {
                 $this->cc($u->email, $u->name);
             }
+        }else{
+            $this->subject('Contato pelo site');
         }
         return $this->view('mails.contact');
     }
