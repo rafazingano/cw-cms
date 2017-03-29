@@ -106,7 +106,7 @@ class LeadController extends Controller {
             return false;
         }
         try {
-            Mail::to('rzingano@agenciafleek.com.br')->send(new Contact($lead));
+            Mail::send(new Contact($lead));
         } catch (Exception $e) {
             return false;
         }

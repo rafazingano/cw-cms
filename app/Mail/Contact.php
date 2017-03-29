@@ -7,6 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Lead;
+use App\LeadRule;
 
 class Contact extends Mailable
 {
@@ -30,6 +31,12 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->from('admin@agenciafleek.com.br', 'Agencia Fleek')->view('mails.contact');
+        $this->from('admin@agenciafleek.com.br', 'Agencia Fleek');
+        if(isset($this->lead->lead_rule)){
+            $lr = LeadRule::where(['slug' => $this->lead->lead_rule])->first();
+            $this->subject($lr->title);
+            $this->to($lr->users);
+        }
+        return $this->view('mails.contact');
     }
 }
