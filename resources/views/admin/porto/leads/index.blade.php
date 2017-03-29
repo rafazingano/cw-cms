@@ -38,7 +38,7 @@
                         <div id="modalAnim-{{ $t->id }}" class="zoom-anim-dialog modal-block modal-block-primary mfp-hide">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">{{ trans('lead.lead') }}</h2>
+                                    <h2 class="panel-title">{{ trans('lead.lead') }} de {{ $t->name }}</h2>
                                 </header>
                                 <div class="panel-body">
                                     <div class="modal-wrapper">
@@ -46,7 +46,10 @@
                                             <i class="fa fa-question-circle"></i>
                                         </div>
                                         <div class="modal-text">
-                                            <p>Are you sure that you want to delete this image?</p>
+                                            <p>Nome: <b>{{ $t->name }}</b></p>
+                                            <p>Email: <b>{{ $t->email }}</b></p>
+                                            <p>Telefone: <b>{{ $t->phone }}</b></p>
+                                            {!! $t->content !!}
                                         </div>
                                     </div>
                                 </div>

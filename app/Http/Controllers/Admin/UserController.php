@@ -24,7 +24,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        //
+        return view('admin.porto.users.create');
     }
 
     /**
@@ -34,7 +34,13 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $this->validate($request, [
+            'email' => 'required',
+            'name' => 'required'
+        ]);
+        $u['options'] = json_encode($u['options']);
+        User::Create($u);
+        return back()->withInput();
     }
 
     /**

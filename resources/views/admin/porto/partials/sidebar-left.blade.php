@@ -23,7 +23,7 @@
                         <a><i class="fa fa-users" aria-hidden="true"></i><span>{{ trans('user.users') }}</span></a>
                         <ul class="nav nav-children">                           
                             <li><a href="{{ route('admin.users.index') }}">{{ trans('user.list') }}</a></li>
-                            <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>{{ trans('user.create') }}</a></li>
+                            <li><a href="{{ route('admin.users.create') }}"><i class="fa fa-user-plus" aria-hidden="true"></i>{{ trans('user.create') }}</a></li>
                         </ul>
                     </li>
                     <li class="nav-parent">

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Lead;
+use App\Mail\Contact;
 
 class LeadController extends Controller {
 
@@ -32,22 +34,9 @@ class LeadController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        $input = $request->all();
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'content' => 'required',
-        ]);
-        //print_r($input); die();
-        //foreach ($request->except(['_token', 'name', 'email', 'phone']) as $k => $v) {
-            //$input['content'] .= ' - ' . $k . ' => ' . $v;
-        //    $r = 1;
-        //}
-        
+    public function store(Request $request) {      
         try {
-            $this->save($input);
+            $this->save($request);
             return back()->withInput()->with('message', 'lead.create_success');
         } catch (Exception $e) {
             return back()->withInput()->with('message', $e->getMessage());
@@ -96,14 +85,28 @@ class LeadController extends Controller {
     }
 
     private function save($request, $id = null) {
-        $attributes = $request->all();
+        $lead = $request->only(['name', 'email', 'phone', 'content']);
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'content' => 'required',
+        ]);
+        foreach ($request->except(['_token', 'name', 'email', 'phone', 'content']) as $k => $v) {
+            $lead['content'] .=  $k . ' - ' . $v . '<br>';
+        }
         try {
             if ($id) {
                 $lead = Lead::findOrFail($id);
-                $lead->update($attributes);
+                $lead->update($lead);
             } else {
-                $lead = Lead::Create($attributes);
-            }
+                $lead = Lead::Create($lead);
+            }            
+        } catch (Exception $e) {
+            return false;
+        }
+        try {
+            Mail::to($request->user())->send(new Contact($lead));
         } catch (Exception $e) {
             return false;
         }
