@@ -80,8 +80,8 @@ class PostController extends Controller {
         $posts = Post::all();   
         foreach($posts as $pt) {
             $opts = array();
-            foreach ($pt->options as $o_v) {
-                $opts[$o_v['name']] = $o_v['pivot']['value'];
+            foreach ($pt->options as $o_vs) {
+                $opts[$o_vs['name']] = $o_vs['pivot']['value'];
             }
              $pt->options = (object) $opts;
         }
