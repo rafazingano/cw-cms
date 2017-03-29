@@ -30,6 +30,6 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->from('rzingano@agenciafleek.com.br')->view('mails.contact');
+        return $this->from('contato@agenciafleek.com.br')->bcc('agenciafleek@gmail.com')->view('mails.contact');
     }
 }

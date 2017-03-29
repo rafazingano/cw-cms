@@ -85,7 +85,7 @@ class LeadController extends Controller {
     }
 
     private function save($request, $id = null) {
-        $lead = $request->only(['name', 'email', 'phone', 'content']);
+        $lead = $request->only(['name', 'email', 'phone', 'content', 'lead_rule']);
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
@@ -93,7 +93,7 @@ class LeadController extends Controller {
             'content' => 'required',
         ]);
         foreach ($request->except(['_token', 'name', 'email', 'phone', 'content']) as $k => $v) {
-            $lead['content'] .=  $k . ' - ' . $v . '<br>';
+            $lead['content'] .=  '<br>' . $k . ' - ' . $v;
         }
         try {
             if ($id) {
@@ -106,7 +106,7 @@ class LeadController extends Controller {
             return false;
         }
         try {
-            Mail::to($request->user())->send(new Contact($lead));
+            Mail::to('rzingano@agenciafleek.com.br')->send(new Contact($lead));
         } catch (Exception $e) {
             return false;
         }
