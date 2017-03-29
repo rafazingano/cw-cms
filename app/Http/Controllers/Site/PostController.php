@@ -77,7 +77,7 @@ class PostController extends Controller {
         abort_if(!$post, 404);
         /*Busca posts relacionados*/
         //$posts = Post::where(['type_id' => $post['type_id']])->get();     
-        $posts = Post::where('slug', 'noticias')->get();   
+        $posts = Post::get();   
         foreach($posts as $post) {
             $opt = array();
             foreach ($post->options as $o_v) {
