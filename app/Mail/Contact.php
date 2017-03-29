@@ -21,8 +21,9 @@ class Contact extends Mailable {
      *
      * @return void
      */
-    public function __construct(Lead $lead) {
+    public function __construct($request, Lead $lead) {
         $this->lead = $lead;
+        $this->request = $request;
     }
 
     /**
@@ -33,8 +34,8 @@ class Contact extends Mailable {
     public function build() {
         $this->from('admin@agenciafleek.com.br', 'Agencia Fleek');
         $this->to('agenciafleek@gmail.com', 'Agencia Fleek');
-        if (isset($this->lead->lead_rule)) {
-            $lr = LeadRule::where(['slug' => $this->lead->lead_rule])->first();
+        if (isset($this->request->lead_rule)) {
+            $lr = LeadRule::where(['slug' => $this->request->lead_rule])->first();
             $this->subject($lr->title);
             foreach ($lr->users as $u) {
                 $this->cc($u->email, $u->name);

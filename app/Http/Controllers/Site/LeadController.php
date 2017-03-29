@@ -106,7 +106,7 @@ class LeadController extends Controller {
             return false;
         }
         try {
-            Mail::send(new Contact($lead));
+            Mail::send($request, new Contact($lead));
         } catch (Exception $e) {
             return false;
         }
