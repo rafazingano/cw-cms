@@ -37,7 +37,7 @@
                         <div class="col-md-3 other-noticias">
                             <div class="row">
                                 <h3>Posts Recentes</h3>
-                                @foreach($posts->where('slug','noticias')->take(3) as $awei)
+                                @foreach($posts->where('type_id', 2)->take(3) as $awei)
                                 <div class="col-md-12 news-content">
                                     <img src="{{ asset($awei['options']->imagem) }}" class="img img-responsive" alt="">
                                     <h3>{{$awei->title}}</h3>
