@@ -38,6 +38,8 @@ class Contact extends Mailable {
             foreach ($lr->users as $u) {
                 $this->to($u->email);
             }
+        }else{
+            $this->to('rzingano@agenciafleek.com.br');
         }
         return $this->view('mails.contact');
     }
