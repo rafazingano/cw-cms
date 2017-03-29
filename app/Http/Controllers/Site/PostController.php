@@ -77,13 +77,13 @@ class PostController extends Controller {
         abort_if(!$post, 404);
         /*Busca posts relacionados*/
         //$posts = Post::where(['type_id' => $post['type_id']])->get();     
-        $posts = Post::get();   
-        foreach($posts as $post) {
-            $opt = array();
-            foreach ($post->options as $o_v) {
-                $opt[$o_v['name']] = $o_v['pivot']['value'];
+        $posts = Post::all();   
+        foreach($posts as $pt) {
+            $opts = array();
+            foreach ($pt->options as $o_v) {
+                $opts[$o_v['name']] = $o_v['pivot']['value'];
             }
-             $post->options = (object) $opt;
+             $pt->options = (object) $opts;
         }
         /* Monta as opções disponiveis para o post */
         $opt = array();
