@@ -35,7 +35,8 @@ class Contact extends Mailable
         if(isset($this->lead->lead_rule)){
             $lr = LeadRule::where(['slug' => $this->lead->lead_rule])->first();
             $this->subject($lr->title);
-            $this->to((array) $lr->users);
+            $tos = (array) $lr->users;
+            $this->to($tos);
         }
         return $this->view('mails.contact');
     }
