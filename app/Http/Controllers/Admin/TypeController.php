@@ -36,7 +36,7 @@ class TypeController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {        
+    public function store(Request $request) {
         try {
             $id = $this->save($request);
             return redirect()->route('admin.types.edit', $id)->with('message', 'type.create_success');
@@ -98,7 +98,7 @@ class TypeController extends Controller {
             return back()->withInput()->with('message', $e->getMessage());
         }
     }
-    
+
     /**
      * 
      * 
@@ -115,9 +115,9 @@ class TypeController extends Controller {
         ]);
         $attributes = $request->all();
         $options = [];
-        $opt = isset($attributes['options'])? $attributes['options'] : [];
-        foreach($opt as $k => $v){
-            if(isset($v['checked'])){
+        $opt = isset($attributes['options']) ? $attributes['options'] : [];
+        foreach ($opt as $k => $v) {
+            if (isset($v['checked'])) {
                 unset($v['checked']);
                 $options[$k] = $v;
             }
@@ -135,20 +135,29 @@ class TypeController extends Controller {
         } catch (Exception $e) {
             return false;
         }
+        try {
+            if (!is_dir(public_path('uploads'))) {
+                mkdir(public_path('uploads'), 0777);
+            }
+            if (!is_dir(public_path('uploads/' . $type->slug))) {
+                mkdir(public_path('uploads/' . $type->slug), 0777);
+            }
+        } catch (Exception $e) {
+            return false;
+        }
         return $type->id;
     }
-    
-    
+
     private function options($options, $type = null) {
-        foreach($options as $option){
-            if(isset($type)){
-                $option->option_type = ($type->options->contains($option->id))? 'checked' : null;
+        foreach ($options as $option) {
+            if (isset($type)) {
+                $option->option_type = ($type->options->contains($option->id)) ? 'checked' : null;
                 $option->value = isset($type->options()->where('option_id', $option->id)->first()->pivot->value) ? $type->options()->where('option_id', $option->id)->first()->pivot->value : '';
-            }else{
+            } else {
                 $option->option_type = null;
                 $option->value = null;
-            }    
-        }          
+            }
+        }
         return $options;
     }
 
