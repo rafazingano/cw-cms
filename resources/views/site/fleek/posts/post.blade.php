@@ -34,7 +34,7 @@
                                 </div-->
                             </article>
                         </div>
-                        <div class="col-md-3 other-noticias">
+                        <div class="col-md-3 other-noticias"> 
                             <div class="row">
                                 <h3>Posts Recentes</h3>
                                 @foreach($posts->where('type_id', 2)->take(3) as $awei)
