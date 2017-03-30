@@ -35,12 +35,15 @@ class Contact extends Mailable {
         $this->from('admin@agenciafleek.com.br', 'Agencia Fleek');
         $this->to('agenciafleek@gmail.com', 'Agencia Fleek');
 
-        /*Verifica se tem algum lead_key e confere o valor*/
+        /* Verifica se tem algum lead_key e confere o valor */
         foreach ($this->request->all() as $req_k => $req_v) {
             $lead_value = LeadRule::where(['lead_key' => $req_k])->first();
-            if (in_array($req_v, explode(',', $lead_value->lead_value))) {
-                foreach ($lead_value->users as $ul) {
-                    $this->cc($ul->email, $ul->name);
+            if (isset($lead_value->lead_value)) {
+                $array_values = explode(',', $lead_value->lead_value);
+                if (in_array($req_v, $array_values)) {
+                    foreach ($lead_value->users as $ul) {
+                        $this->cc($ul->email, $ul->name);
+                    }
                 }
             }
         }
