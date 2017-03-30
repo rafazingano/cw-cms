@@ -27,7 +27,22 @@
             <div class="form-group">
                 <label for="InputPhone">Phone</label>
                 <input name="phone" type="text" class="form-control" id="InputPhone" placeholder="Phone">
-            </div>             
+            </div>    
+            <div class="form-group">
+                <label for="InputPhone">Phone</label>
+                <select class="form-control" required="" name="subject" id="subject" placeholder="Subject">
+                    <option value="" style="display:none;">Assunto</option>
+                    <optgroup label="Não sou cliente">
+                        <option value="orcamento-naocliente">Orçamento</option>
+                        <option value="duvida-naocliente">Dúvida</option>
+                    </optgroup>
+                    <optgroup label="Já sou cliente">
+                        <option value="orcamento-simcliente">Orçamento</option>
+                        <option value="duvida-simcliente">Dúvida</option>
+                    </optgroup>
+                    <option value="outros">Outros</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="InputMessage">Mensagem</label>
                 <textarea name="content" class="form-control" id="InputMessage" placeholder="Mensagem"></textarea>
