@@ -17,6 +17,8 @@ class CreateLeadRulesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('slug')->unique();
+            $table->string('lead_key')->unique();
+            $table->text('lead_value');
             $table->text('description');
             $table->timestamps();
             $table->softDeletes();

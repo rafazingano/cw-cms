@@ -34,13 +34,25 @@ class Contact extends Mailable {
     public function build() {
         $this->from('admin@agenciafleek.com.br', 'Agencia Fleek');
         $this->to('agenciafleek@gmail.com', 'Agencia Fleek');
+
+        /*Verifica se tem algum lead_key e confere o valor*/
+        foreach ($this->request->all() as $req_k => $req_v) {
+            $lead_value = LeadRule::where(['lead_key' => $req_k])->first();
+            if (in_array($req_v, explode(',', $lead_value->lead_value))) {
+                foreach ($lead_value->users as $ul) {
+                    $this->cc($ul->email, $ul->name);
+                }
+            }
+        }
+
+        /* Verifica se veio o lead_rule e compara com o slug do lead rule */
         if (isset($this->request->lead_rule)) {
             $lr = LeadRule::where(['slug' => $this->request->lead_rule])->first();
             $this->subject($lr->title);
             foreach ($lr->users as $u) {
                 $this->cc($u->email, $u->name);
             }
-        }else{
+        } else {
             $this->subject('Contato pelo site');
         }
         return $this->view('mails.contact');
