@@ -34,7 +34,6 @@ class Contact extends Mailable {
     public function build() {
         $this->from('admin@agenciafleek.com.br', 'Agencia Fleek');
         $this->to('agenciafleek@gmail.com', 'Agencia Fleek');
-
         /* Verifica se tem algum lead_key e confere o valor */
         foreach ($this->request->all() as $req_k => $req_v) {
             $lead_value = LeadRule::where(['lead_key' => $req_k])->first();
@@ -47,7 +46,6 @@ class Contact extends Mailable {
                 }
             }
         }
-
         /* Verifica se veio o lead_rule e compara com o slug do lead rule */
         if (isset($this->request->lead_rule)) {
             $lr = LeadRule::where(['slug' => $this->request->lead_rule])->first();
