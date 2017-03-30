@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class LeadRule extends Model {
 
     protected $fillable = [
-        'title', 'slug', 'description'
+        'title', 'slug', 'description', 'lead_key', 'lead_value'
     ];
 
     public function users() {
