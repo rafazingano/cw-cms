@@ -13,4 +13,6 @@ return [
     'created_at' => 'Created At',
     'action' => 'Action',
     'list' => 'List of lead rules',
+    'lead_key' => 'Chave da regra de leads',
+    'lead_value' => 'Valores para essa regra de leads',
 ];
