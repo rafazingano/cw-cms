@@ -17,7 +17,9 @@ class CreateTypesTable extends Migration {
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->string('layout')->default('default');
+            $table->string('theme')->nullable();
+            $table->string('layout')->nullable();
+            $table->string('view')->default('post');
             $table->string('icon')->default('glyphicon glyphicon-menu-right');
             $table->integer('status')->default(1);
             $table->timestamps();

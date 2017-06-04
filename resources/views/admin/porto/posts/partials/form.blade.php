@@ -50,12 +50,16 @@
 
         <div class="row form-group">
             <div class="col-lg-4">
+                <label class="control-label">{{ trans('post.view') }}</label>
+                {!! Form::select('view', $type_views, null, ['class' => 'form-control']) !!}
+            </div>
+            <div class="col-lg-4">
                 <label class="control-label">{{ trans('post.order') }}</label>
-                {!! Form::select('order', [1,2,3,4,5,6,7,8,9], null, ['class' => 'form-control', 'placeholder' => 'Order']) !!}
+                {!! Form::select('order', [1,2,3,4,5,6,7,8,9], null, ['class' => 'form-control']) !!}
             </div>
             <div class="col-lg-4">
                 <label class="control-label">{{ trans('post.status') }}</label>
-                {!! Form::select('status', [1 => trans('post.activated'), 0 => trans('post.disabled')], null, ['class' => 'form-control', 'placeholder' => 'Status']) !!}
+                {!! Form::select('status', [1 => trans('post.activated'), 0 => trans('post.disabled')], null, ['class' => 'form-control']) !!}
             </div>
         </div>
 

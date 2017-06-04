@@ -58,6 +58,7 @@ Route::group(['namespace' => 'Site'], function () {
     //Route::get('/', 'HomeController@index');
     Route::post('/leads/store', 'LeadController@store')->name('lead.store');
     Route::get('/', 'PostController@show')->name('home');
-    Route::get('/{slug}', 'PostController@index')->name('post');
+    //Route::get('/{slug}', 'PostController@index')->name('post');
+    Route::get('/{slug}', 'PostController@show')->name('post');
     Route::get('/{type}/{slug}', 'PostController@show')->name('type.post');
 });

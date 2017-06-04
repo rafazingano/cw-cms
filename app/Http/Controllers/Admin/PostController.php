@@ -8,6 +8,7 @@ use App\Post;
 use App\Type;
 use App\Gallery;
 use Illuminate\Validation\Rule;
+use App\Site;
 
 class PostController extends Controller {
 
@@ -29,6 +30,9 @@ class PostController extends Controller {
     public function create($type_id) {
         $data['type'] = Type::find($type_id);
         $data['options'] = $this->options($data['type']->options, $data['type']);
+        $theme = Site::first()->theme;
+        //dd($theme);
+        $data['type_views'] = $this->listViewsType($theme, $data['type']);
         return view('admin.porto.posts.create', $data);
     }
 
@@ -121,8 +125,8 @@ class PostController extends Controller {
         $attributes = $request->all();
         $options = isset($attributes['options']) ? $attributes['options'] : [];
         //echo '<pre>'; print_r($options); die();
-        foreach($options as $k => $v){
-            if(empty($v['value'])){
+        foreach ($options as $k => $v) {
+            if (empty($v['value'])) {
                 $options[$k]['value'] = '';
             }
         }
@@ -217,6 +221,28 @@ class PostController extends Controller {
             return $destinationPath . '/' . $fileName;
         }
         return false;
+    }
+
+    private function listViewsType($theme, $type, $R = NULL) {
+        if (is_dir(resource_path('views/site/' . $theme->slug . '/' . $type->view))) {
+            $resource_path = dir(resource_path('views/site/' . $theme->slug . '/' . $type->view));
+            while ($file = $resource_path->read()) {
+                if (strpos($file, '.blade.php')) {
+                    $file = str_replace('.blade.php', '', $file);
+                    $R[$type->view . '/' . $file] = ucfirst(str_replace([$type->view . '-', '-'], ['', ' '], $file));
+                }
+            }
+            $resource_path->close();
+        }
+        $resource_path = dir(resource_path('views/site/' . $theme->slug));
+        while ($file = $resource_path->read()) {
+            if (strpos($file, '.blade.php') && 'post' == explode('-', $file)[0]) {
+                $file = str_replace('.blade.php', '', $file);
+                $R[$file] = ucfirst(str_replace('-', ' ', $file));
+            }
+        }
+        $resource_path->close();
+        return $R;
     }
 
 }

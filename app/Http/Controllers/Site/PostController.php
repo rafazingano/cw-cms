@@ -15,26 +15,8 @@ class PostController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($slug = '/') {
-        $type = Type::where(['slug' => $slug])->first();
-        if (!$type) {
-            return $this->show($slug);
-        }
-        $posts = Post::where(['type_id' => $type->id])->paginate(15);
-        foreach($posts as $post) {
-            $opt = array();
-            foreach ($post->options as $o_v) {
-                $opt[$o_v['name']] = $o_v['pivot']['value'];
-            }
-             $post->options = (object) $opt;
-        }
-        $site_theme = Site::first()->theme->slug;
-        $theme = isset($site_theme) ? $site_theme : 'default';
-        $array_layouts = [$type->layout, 'default'];
-        $layout = $this->validateView($theme, 'layouts', $array_layouts);
-        $array_views = [$type->slug, 'posts'];
-        $view = $this->validateView($theme, 'types', $array_views);
-        return view($view, compact('posts', 'type', 'layout'));
+    public function index() {
+        //
     }
 
     /**
@@ -75,15 +57,15 @@ class PostController extends Controller {
             }
         }
         abort_if(!$post, 404);
-        /*Busca posts relacionados*/
+        /* Busca posts relacionados */
         //$posts = Post::where(['type_id' => $post['type_id']])->get();     
-        $posts = Post::all();   
-        foreach($posts as $pt) {
+        $posts = Post::all();
+        foreach ($posts as $pt) {
             $opts = array();
             foreach ($pt->options as $o_vs) {
                 $opts[$o_vs['name']] = $o_vs['pivot']['value'];
             }
-             $pt->options = (object) $opts;
+            $pt->options = (object) $opts;
         }
         /* Monta as opções disponiveis para o post */
         $opt = array();
@@ -98,8 +80,8 @@ class PostController extends Controller {
             abort_if(!$post, 404);
         }
         /* Busca a view */
-        $array_views = [$post->slug, $post->type->slug . '-' . $post->slug, $post->type->slug, 'post'];
-        $view = $this->validateView($theme, 'posts', $array_views);
+        $array_views = [$post->view, 'post-' . $post->type->view, 'post'];
+        $view = $this->validateView($theme, NULL, $array_views);
         if (!$view) {
             abort_if(!$post, 404);
         }

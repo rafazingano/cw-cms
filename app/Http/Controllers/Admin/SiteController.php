@@ -123,6 +123,9 @@ class SiteController extends Controller {
             } else {
                 $site = Site::Create($attributes);
             }
+            if(isset($attributes['theme_id']) && !empty($attributes['theme_id'])){
+                Theme::init($attributes['theme_id']);
+            }
         } catch (Exception $e) {
             return false;
         }

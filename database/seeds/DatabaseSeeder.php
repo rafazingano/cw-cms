@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder {
         }
 
         $types = [
-                ['title' => 'type.pages', 'slug' => 'pages', 'description' => 'Site pages']
+                ['title' => 'type.pages', 'slug' => 'pages', 'description' => 'Site pages', 'view' => 'page']
         ];
         foreach ($types as $type) {
             DB::table('types')->insert($type);

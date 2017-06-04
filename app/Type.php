@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model {
 
     protected $fillable = [
-        'title', 'slug', 'description', 'icon', 'status'
+        'title', 'slug', 'description', 'theme', 'layout', 'view', 'icon', 'status'
     ];
 
     public function options() {

@@ -20,7 +20,9 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('content');  
-            $table->string('layout')->default('default');
+            //$table->string('theme')->default('default');
+            //$table->string('layout')->default('default');
+            $table->string('view')->default('post');
             $table->integer('order')->default(1);
             $table->integer('status')->default(1);
             $table->foreign('type_id')
